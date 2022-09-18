@@ -20,7 +20,7 @@ class _ListObjectInSchoolState extends State<ListObjectInSchool> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(widget.color),

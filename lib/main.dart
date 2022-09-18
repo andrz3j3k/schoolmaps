@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:html';
 import 'package:schoolapp/View/MainPage.dart';
 
 void main() {
@@ -18,8 +17,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mapa szkoły',
+      title: 'Mapa ZSEIO',
       theme: ThemeData(
+        primaryColor: Colors.amber,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor:

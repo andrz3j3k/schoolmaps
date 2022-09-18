@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:pinch_zoom/pinch_zoom.dart';
 import 'ButtonListObject.dart';
 
 class MyHome extends StatefulWidget {
@@ -21,17 +21,17 @@ class _MyHomeState extends State<MyHome> {
   changeObject() {
     switch (selectSchoolObject + selectFloor) {
       case 11:
-        return 'mapaDworskiego.png';
+        return 'assets/mapaDworskiego.png';
       case 21:
-        return 'mapaDworskiego1.png';
+        return 'assets/mapaDworskiego1.png';
       case 12:
-        return 'mapaKilinskiego.png';
+        return 'assets/mapaKilinskiego.png';
       case 22:
-        return 'mapaKilinskiego1.png';
+        return 'assets/mapaKilinskiego1.png';
       case 32:
-        return 'mapaKilinskiego2.png';
+        return 'assets/mapaKilinskiego2.png';
       case 42:
-        return 'mapaKilinskiego3.png';
+        return 'assets/mapaKilinskiego3.png';
     }
   }
 
@@ -97,7 +97,7 @@ class _MyHomeState extends State<MyHome> {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth > 600) {
+          if (constraints.maxWidth > 450) {
             return Column(
               children: [
                 Container(
@@ -191,7 +191,12 @@ class _MyHomeState extends State<MyHome> {
                 ),
                 Expanded(
                   child: Container(
-                    child: Image.asset(changeObject(), height: double.infinity),
+                    child: PinchZoom(
+                      maxScale: 2.5,
+                      resetDuration: const Duration(milliseconds: 200),
+                      child:
+                          Image.asset(changeObject(), height: double.infinity),
+                    ),
                   ),
                 ),
               ],
@@ -246,62 +251,72 @@ class _MyHomeState extends State<MyHome> {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListObjectInSchool(
-                      nameObject: "Parter",
-                      fc: () {
-                        selectFloor = floor[0];
-                        setState(() {});
-                      },
-                      color: changeColorFloor(10),
-                    ),
-                    ListObjectInSchool(
-                      nameObject: "I",
-                      fc: () {
-                        selectFloor = floor[1];
-                        setState(() {});
-                      },
-                      color: changeColorFloor(20),
-                    ),
-                    ListObjectInSchool(
-                      nameObject: "II",
-                      fc: selectSchoolObject != 1
-                          ? () {
-                              selectFloor = floor[2];
-                              setState(() {});
-                            }
-                          : () {},
-                      color: changeColorFloor(30),
-                    ),
-                    ListObjectInSchool(
-                      nameObject: "III",
-                      fc: selectSchoolObject != 1
-                          ? () {
-                              selectFloor = floor[3];
-                              setState(() {});
-                            }
-                          : () {},
-                      color: changeColorFloor(40),
-                    )
-                  ],
+                Container(
+                  width: 450,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ListObjectInSchool(
+                        nameObject: "Parter",
+                        fc: () {
+                          selectFloor = floor[0];
+                          setState(() {});
+                        },
+                        color: changeColorFloor(10),
+                      ),
+                      ListObjectInSchool(
+                        nameObject: "I",
+                        fc: () {
+                          selectFloor = floor[1];
+                          setState(() {});
+                        },
+                        color: changeColorFloor(20),
+                      ),
+                      ListObjectInSchool(
+                        nameObject: "II",
+                        fc: selectSchoolObject != 1
+                            ? () {
+                                selectFloor = floor[2];
+                                setState(() {});
+                              }
+                            : () {},
+                        color: changeColorFloor(30),
+                      ),
+                      ListObjectInSchool(
+                        nameObject: "III",
+                        fc: selectSchoolObject != 1
+                            ? () {
+                                selectFloor = floor[3];
+                                setState(() {});
+                              }
+                            : () {},
+                        color: changeColorFloor(40),
+                      )
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: Container(
-                    child: changeObject() == 'mapaDworskiego.png' ||
-                            changeObject() == 'mapaDworskiego1.png'
+                    child: changeObject() == 'assets/mapaDworskiego.png' ||
+                            changeObject() == 'assets/mapaDworskiego1.png'
                         ? Transform.rotate(
                             angle: 90 * pi / 180,
                             child: Transform.scale(
-                              scale: 1.5,
-                              child: Image.asset(
-                                changeObject(),
+                              scale: 1.2,
+                              child: PinchZoom(
+                                maxScale: 2.5,
+                                resetDuration:
+                                    const Duration(milliseconds: 200),
+                                child: Image.asset(changeObject(),
+                                    height: double.infinity),
                               ),
                             ),
                           )
-                        : Image.asset(
-                            changeObject(),
+                        : PinchZoom(
+                            maxScale: 2.5,
+                            resetDuration: const Duration(milliseconds: 200),
+                            child: Image.asset(changeObject(),
+                                height: double.infinity),
                           ),
                   ),
                 ),
