@@ -16,7 +16,7 @@ class _MyHomeState extends State<MyHome> {
   var schoolObject = [1, 2];
 
   var selectFloor = 10;
-  var selectSchoolObject = 1;
+  var selectSchoolObject = 2;
 
   changeObject() {
     switch (selectSchoolObject + selectFloor) {
@@ -76,254 +76,160 @@ class _MyHomeState extends State<MyHome> {
           'Mapa ZSEIO',
         ),
         titleTextStyle: const TextStyle(fontSize: 30, color: Colors.white),
-        leading: IconButton(
-          hoverColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          icon: Icon(
-            Icons.menu,
-            size: 30,
-            color: kolor,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.sentiment_satisfied_outlined),
+            tooltip: 'Autorzy',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                      'Autorzy: Dominik Gąsior, Mateusz Bojarski dla ZSEIO Przemyśl :)'),
+                ),
+              );
+            },
           ),
-          onPressed: () {
-            if (kolor == Colors.white) {
-              kolor = Colors.yellow;
-            } else {
-              kolor = Colors.white;
-            }
-            setState(() {});
-          },
-        ),
+        ],
       ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth > 450) {
-            return Column(
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 25, bottom: 25),
+            child: const Text(
+              'Wybierz budynek:',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Container(
+            width: 450,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 25, bottom: 25),
-                  child: const Text(
-                    'Wybierz budynek:',
-                    style: TextStyle(fontSize: 20),
+                Expanded(
+                  child: ListObjectInSchool(
+                    nameObject: "Budynek na Kilińskiego",
+                    fc: () {
+                      selectSchoolObject = schoolObject[1];
+                      selectFloor = floor[0];
+                      setState(() {});
+                    },
+                    color: changeColorObject(2),
                   ),
-                ),
-                Container(
-                  width: 450,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: ListObjectInSchool(
-                          nameObject: "Budynek na Dworskiego",
-                          fc: () {
-                            selectSchoolObject = schoolObject[0];
-                            selectFloor = floor[0];
-                            setState(() {});
-                          },
-                          color: changeColorObject(1),
-                        ),
-                      ),
-                      Expanded(
-                        child: ListObjectInSchool(
-                          nameObject: "Budynek na Kilińskiego",
-                          fc: () {
-                            selectSchoolObject = schoolObject[1];
-                            selectFloor = floor[0];
-                            setState(() {});
-                          },
-                          color: changeColorObject(2),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 25, bottom: 15),
-                  child: const Text(
-                    'Piętra:',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListObjectInSchool(
-                      nameObject: "Parter",
-                      fc: () {
-                        selectFloor = floor[0];
-                        setState(() {});
-                      },
-                      color: changeColorFloor(10),
-                    ),
-                    ListObjectInSchool(
-                      nameObject: "I",
-                      fc: () {
-                        selectFloor = floor[1];
-                        setState(() {});
-                      },
-                      color: changeColorFloor(20),
-                    ),
-                    ListObjectInSchool(
-                      nameObject: "II",
-                      fc: selectSchoolObject != 1
-                          ? () {
-                              selectFloor = floor[2];
-                              setState(() {});
-                            }
-                          : () {
-                              setState(() {});
-                            },
-                      color: changeColorFloor(30),
-                    ),
-                    ListObjectInSchool(
-                      nameObject: "III",
-                      fc: selectSchoolObject != 1
-                          ? () {
-                              selectFloor = floor[3];
-                              setState(() {});
-                            }
-                          : () {
-                              setState(() {});
-                            },
-                      color: changeColorFloor(40),
-                    )
-                  ],
                 ),
                 Expanded(
-                  child: Container(
-                    child: PinchZoom(
-                      maxScale: 2.5,
-                      resetDuration: const Duration(milliseconds: 200),
-                      child:
-                          Image.asset(changeObject(), height: double.infinity),
-                    ),
+                  child: ListObjectInSchool(
+                    nameObject: "Budynek na Dworskiego",
+                    fc: () {
+                      selectSchoolObject = schoolObject[0];
+                      selectFloor = floor[0];
+                      setState(() {});
+                    },
+                    color: changeColorObject(1),
                   ),
                 ),
               ],
-            );
-          } else {
-            return Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 10,
-                    bottom: 5,
-                  ),
-                  child: const Text(
-                    'Wybierz budynek',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  width: 450,
-                  child: Row(
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 25, bottom: 15),
+            child: const Text(
+              'Piętra:',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Container(
+            width: 400,
+            child: selectSchoolObject != 1
+                ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         child: ListObjectInSchool(
-                          nameObject: "Budynek na Dworskiego",
+                          nameObject: "Parter",
                           fc: () {
-                            selectSchoolObject = schoolObject[0];
                             selectFloor = floor[0];
                             setState(() {});
                           },
-                          color: changeColorObject(1),
+                          color: changeColorFloor(10),
                         ),
                       ),
                       Expanded(
                         child: ListObjectInSchool(
-                          nameObject: "Budynek na Kilińskiego",
+                          nameObject: "I",
                           fc: () {
-                            selectSchoolObject = schoolObject[1];
-                            selectFloor = floor[0];
+                            selectFloor = floor[1];
                             setState(() {});
                           },
-                          color: changeColorObject(2),
+                          color: changeColorFloor(20),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 5, bottom: 5),
-                  child: const Text(
-                    'Piętra:',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  width: 450,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ListObjectInSchool(
-                        nameObject: "Parter",
-                        fc: () {
-                          selectFloor = floor[0];
-                          setState(() {});
-                        },
-                        color: changeColorFloor(10),
+                      Expanded(
+                        child: ListObjectInSchool(
+                          nameObject: "II",
+                          fc: selectSchoolObject != 1
+                              ? () {
+                                  selectFloor = floor[2];
+                                  setState(() {});
+                                }
+                              : () {
+                                  setState(() {});
+                                },
+                          color: changeColorFloor(30),
+                        ),
                       ),
-                      ListObjectInSchool(
-                        nameObject: "I",
-                        fc: () {
-                          selectFloor = floor[1];
-                          setState(() {});
-                        },
-                        color: changeColorFloor(20),
-                      ),
-                      ListObjectInSchool(
-                        nameObject: "II",
-                        fc: selectSchoolObject != 1
-                            ? () {
-                                selectFloor = floor[2];
-                                setState(() {});
-                              }
-                            : () {},
-                        color: changeColorFloor(30),
-                      ),
-                      ListObjectInSchool(
-                        nameObject: "III",
-                        fc: selectSchoolObject != 1
-                            ? () {
-                                selectFloor = floor[3];
-                                setState(() {});
-                              }
-                            : () {},
-                        color: changeColorFloor(40),
+                      Expanded(
+                        child: ListObjectInSchool(
+                          nameObject: "III",
+                          fc: selectSchoolObject != 1
+                              ? () {
+                                  selectFloor = floor[3];
+                                  setState(() {});
+                                }
+                              : () {
+                                  setState(() {});
+                                },
+                          color: changeColorFloor(40),
+                        ),
                       )
                     ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ListObjectInSchool(
+                          nameObject: "Parter",
+                          fc: () {
+                            selectFloor = floor[0];
+                            setState(() {});
+                          },
+                          color: changeColorFloor(10),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListObjectInSchool(
+                          nameObject: "I",
+                          fc: () {
+                            selectFloor = floor[1];
+                            setState(() {});
+                          },
+                          color: changeColorFloor(20),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: changeObject() == 'assets/mapaDworskiego.png' ||
-                            changeObject() == 'assets/mapaDworskiego1.png'
-                        ? Transform.rotate(
-                            angle: 90 * pi / 180,
-                            child: Transform.scale(
-                              scale: 1.2,
-                              child: PinchZoom(
-                                maxScale: 2.5,
-                                resetDuration:
-                                    const Duration(milliseconds: 200),
-                                child: Image.asset(changeObject(),
-                                    height: double.infinity),
-                              ),
-                            ),
-                          )
-                        : PinchZoom(
-                            maxScale: 2.5,
-                            resetDuration: const Duration(milliseconds: 200),
-                            child: Image.asset(changeObject(),
-                                height: double.infinity),
-                          ),
-                  ),
-                ),
-              ],
-            );
-          }
-        },
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(top: 5),
+              child: PinchZoom(
+                maxScale: 2.5,
+                resetDuration: const Duration(milliseconds: 1000),
+                child: Image.asset(changeObject(), height: double.infinity),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

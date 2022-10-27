@@ -1,33 +1,33 @@
 {
-    "name": "schoolapp",
-    "short_name": "schoolapp",
+    "name": "Mapa ZSEIO",
+    "short_name": "Mapa",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Mapa ZSEIO",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "icons/Icon-192.png",
-            "sizes": "192x192",
+            "src": "favicon.png",
+            "sizes": "200x200",
             "type": "image/png"
         },
         {
-            "src": "icons/Icon-512.png",
-            "sizes": "512x512",
+            "src": "favicon.png",
+            "sizes": "200x200",
             "type": "image/png"
         },
         {
-            "src": "icons/Icon-maskable-192.png",
-            "sizes": "192x192",
+            "src": "favicon.png",
+            "sizes": "200x200",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "icons/Icon-maskable-512.png",
-            "sizes": "512x512",
+            "src": "favicon.png",
+            "sizes": "200x200",
             "type": "image/png",
             "purpose": "maskable"
         }
